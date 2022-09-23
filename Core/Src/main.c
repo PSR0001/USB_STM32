@@ -44,7 +44,7 @@
 
 /* USER CODE BEGIN PV */
 extern USBD_HandleTypeDef hUsbDeviceFS;
-char msg_buff[50]={0};
+char msg_buff[80];
 
 typedef struct {
 	uint8_t MODIFIER;
@@ -78,40 +78,165 @@ void KeyBoardPrint(char *data,uint16_t length)
 	  		if(data[count]>=0x41 && data[count]<=0x5A)
 	  		{
 	  			keyBoardHIDsub.MODIFIER=0x02;
-	  			keyBoardHIDsub.KEYCODE1=data[count]-0x3D;
+	  			keyBoardHIDsub.KEYCODE1=data[count]-0x3D; //04 to 1D all the alphabet
 	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
-	  			HAL_Delay(15);
-	  			keyBoardHIDsub.MODIFIER=0x00;
-	  			keyBoardHIDsub.KEYCODE1=0x00;
-	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//	  			HAL_Delay(15);
+//	  			keyBoardHIDsub.MODIFIER=0x00;
+//	  			keyBoardHIDsub.KEYCODE1=0x00;
+//	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+	  			Fun();
 	  		}
 	  		else if(data[count]>=0x61 && data[count]<=0x7A)
 	  		{
-	  			keyBoardHIDsub.KEYCODE1=data[count]-0x5D;
+	  			keyBoardHIDsub.KEYCODE1=data[count]-0x5D;  //04 to 1D all the alphabet
 	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
-	  			HAL_Delay(15);
-	  			keyBoardHIDsub.KEYCODE1=0x00;
-	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//	  			HAL_Delay(15);
+//	  			keyBoardHIDsub.KEYCODE1=0x00;
+//	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+	  			Fun();
 	  		}
+//	  		else if(data[count]==0x21)
+//			{
+//	  			keyBoardHIDsub.MODIFIER=0x02;
+//	  			keyBoardHIDsub.KEYCODE1=0x1E; //for !
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//			}
+//	  		else if(data[count]==0x22)
+//			{
+//	  			keyBoardHIDsub.MODIFIER=0x02;
+//				keyBoardHIDsub.KEYCODE1=0x34; //for "
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//			}
+
+//	  		else if(data[count]>=0x23 && data[count] <= 0x25 )
+//			{
+//				keyBoardHIDsub.MODIFIER=0x02;
+//				keyBoardHIDsub.KEYCODE1= data[count]-0x03; //for # $ %
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//			}
+	  		else if(data[count]==0x27)
+			{
+				keyBoardHIDsub.KEYCODE1=0x34; //for '
+				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+				Fun();
+			}
+	  		else if(data[count]>=0x28 && data[count] <= 0x29 )
+			{
+				keyBoardHIDsub.MODIFIER=0x02;
+				keyBoardHIDsub.KEYCODE1= data[count]-0x02; //for ( )
+				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+				Fun();
+			}
+//	  		else if(data[count]>=0x2A )
+//			{
+//				keyBoardHIDsub.MODIFIER=0x02;
+//				keyBoardHIDsub.KEYCODE1= 0x25; //for *
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//			}
+//	  		else if(data[count]>=0x23 && data[count] <= 0x25 )
+//			{
+//				keyBoardHIDsub.MODIFIER=0x02;
+//				keyBoardHIDsub.KEYCODE1= data[count]-0x03; //for # $ %
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//			}
+	  		else if(data[count]==0x3D)
+			{
+				keyBoardHIDsub.KEYCODE1=0x2E; // for =
+				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+				Fun();
+			}
+	  		else if(data[count]==0x2E)
+			{
+				keyBoardHIDsub.KEYCODE1=0x37; // for .
+				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+				Fun();
+			}
+	  		else if(data[count]==0x7B)
+			{
+	  			keyBoardHIDsub.MODIFIER=0x02;
+				keyBoardHIDsub.KEYCODE1=0x2F; //for {
+				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+				Fun();
+			}
+	  		else if(data[count]==0x7D)
+			{
+	  			keyBoardHIDsub.MODIFIER=0x02;
+				keyBoardHIDsub.KEYCODE1=0x30; //for }
+				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//				HAL_Delay(15);
+//				keyBoardHIDsub.KEYCODE1=0x00;
+//				USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+				Fun();
+			}
 	  		else if(data[count]==0x20)
 	  		{
 	  			keyBoardHIDsub.KEYCODE1=0x2C;
 	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
-	  			HAL_Delay(15);
-	  			keyBoardHIDsub.KEYCODE1=0x00;
-	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//	  			HAL_Delay(15);
+//	  			keyBoardHIDsub.KEYCODE1=0x00;
+//	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+	  			Fun();
 	  		}
-	  		else if(data[count]==0x0A)
+
+	  		else if(data[count]==0x2B)
 	  		{
 	  			keyBoardHIDsub.KEYCODE1=0x28;
 	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
-	  			HAL_Delay(15);
-	  			keyBoardHIDsub.KEYCODE1=0x00;
-	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+//	  			HAL_Delay(15);
+//	  			keyBoardHIDsub.KEYCODE1=0x00;
+//	  			USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+	  			Fun();
 	  		}
 	  		HAL_Delay(25);
 	  	}
 	  }
+
+
+
+
+
+void Fun(){
+	HAL_Delay(15);
+	keyBoardHIDsub.MODIFIER=0x00;
+	keyBoardHIDsub.KEYCODE1=0x00;
+	USBD_HID_SendReport(&hUsbDeviceFS,&keyBoardHIDsub,sizeof(keyBoardHIDsub));
+}
+
+
+
+
+
+
 /* USER CODE END 0 */
 
 /**
@@ -144,9 +269,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-  	 int buffer = sprintf(msg_buff,"I Love JavaScript.\n");
-
-
+  int buffer=sprintf(msg_buff,"function STM(){+let A = 'I can You Can'+return ()=>{+console.log(A)+}+}+STM()()++");
 
 
   /* USER CODE END 2 */
@@ -157,7 +280,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	  KeyBoardPrint(msg_buff, buffer);
-	  HAL_Delay(2000);
+	  HAL_Delay(5000);
 
 
     /* USER CODE BEGIN 3 */
